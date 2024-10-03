@@ -1,5 +1,4 @@
-package com.example.mooddiary
-
+package com.example.mooddiary.models
 import java.time.LocalDateTime
 
 data class MoodNote(

@@ -1,6 +1,6 @@
-// MoodViewModel.kt
 package com.example.mooddiary.viewModel
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,6 +24,7 @@ class MoodViewModel : ViewModel() {
             date = LocalDateTime.now()
         )
         _moodNotes.value = _moodNotes.value + newNote // Обновление списка через StateFlow
+        Log.d("MoodViewModel", "Added new mood note: $newNote")
     }
 
     fun updateMoodNote(id: Int, mood: String, note: String) {
@@ -33,6 +34,9 @@ class MoodViewModel : ViewModel() {
             val updatedNote = existingNote.copy(mood = mood, note = note)
             existingNotes[existingNotes.indexOf(existingNote)] = updatedNote
             _moodNotes.value = existingNotes // Обновление списка через StateFlow
+            Log.d("MoodViewModel", "Updated mood note: $updatedNote")
+        } else {
+            Log.e("MoodViewModel", "Failed to update mood note, ID not found: $id")
         }
     }
 }

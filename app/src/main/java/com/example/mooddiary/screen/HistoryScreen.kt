@@ -1,5 +1,6 @@
 package com.example.mooddiary.screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,14 +19,16 @@ import com.example.mooddiary.viewModel.MoodViewModel
 fun HistoryScreen(viewModel: MoodViewModel = viewModel()) {
     val moodNotes by viewModel.moodNotes.collectAsState()
 
+    Log.d("HistoryScreen", "Loading mood notes: ${moodNotes.size} notes")
+
     Scaffold { innerPadding ->
         LazyColumn(modifier = Modifier.fillMaxSize().padding(innerPadding)) {
             items(moodNotes) { note ->
                 MoodNoteCard(note = note, onClick = {
+                    Log.d("HistoryScreen", "Note clicked: ${note.id}")
                     // Обработчик нажатия
                 })
             }
         }
-        // Здесь можно добавить компонент графика, используя стороннюю библиотеку
     }
 }

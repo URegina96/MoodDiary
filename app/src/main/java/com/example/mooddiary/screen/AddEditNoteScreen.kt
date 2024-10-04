@@ -20,13 +20,15 @@ fun AddEditScreen(navController: NavHostController, noteId: Int?, viewModel: Moo
 
     val context = LocalContext.current // Получаем контекст для Toast
 
-    // Получаем существующую заметку, если noteId не null
     if (noteId != null) {
         val existingNote = viewModel.moodNotes.collectAsState().value.find { it.id == noteId }
         existingNote?.let {
             mood = it.mood
             note = it.note
-        }
+            Log.d("AddEditScreen", "Editing existing note: $it")
+        } ?: Log.e("AddEditScreen", "Note not found for id: $noteId")
+    } else {
+        Log.d("AddEditScreen", "Adding new note")
     }
 
     Scaffold { innerPadding ->
@@ -39,13 +41,19 @@ fun AddEditScreen(navController: NavHostController, noteId: Int?, viewModel: Moo
         ) {
             TextField(
                 value = mood,
-                onValueChange = { mood = it },
+                onValueChange = {
+                    mood = it
+                    Log.d("AddEditScreen", "Mood updated: $mood")
+                },
                 label = { Text("Настроение") }
             )
             Spacer(modifier = Modifier.height(8.dp))
             TextField(
                 value = note,
-                onValueChange = { note = it },
+                onValueChange = {
+                    note = it
+                    Log.d("AddEditScreen", "Note updated: $note")
+                },
                 label = { Text("Заметка") },
                 modifier = Modifier.fillMaxHeight(0.5f)
             )

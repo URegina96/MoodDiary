@@ -9,8 +9,11 @@ import com.example.mooddiary.models.MoodNote
 import java.time.LocalDateTime
 
 class MoodViewModel : ViewModel() {
-    // Изменяет пустой список на StateFlow
-    private val _moodNotes = MutableStateFlow<List<MoodNote>>(emptyList())
+    private val _moodNotes = MutableStateFlow<List<MoodNote>>(listOf(
+        MoodNote(1, "Счастлив", "Отличный день!", LocalDateTime.now()),
+        MoodNote(2, "Грустный", "Плохие новости.", LocalDateTime.now())
+    ))
+
     val moodNotes = _moodNotes.asStateFlow()
 
     fun addMoodNote(mood: String, note: String) {

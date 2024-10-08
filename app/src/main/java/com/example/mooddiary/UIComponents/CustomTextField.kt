@@ -1,4 +1,3 @@
-// CustomTextField.kt
 package com.example.mooddiary.UIComponents
 
 import androidx.compose.foundation.layout.fillMaxWidth

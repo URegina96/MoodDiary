@@ -10,7 +10,6 @@ import java.time.LocalDateTime
 
 class MoodViewModel : ViewModel() {
     private val _moodNotes = MutableStateFlow<List<MoodNote>>(
-        // Инициализация тестовыми значениями
         listOf(
             MoodNote(1, "Счастлив", "Отличный день!", LocalDateTime.of(2023, 12, 25, 10, 30)),
             MoodNote(2, "Грустный", "Плохие новости.", LocalDateTime.of(2023, 12, 24, 16, 15))
@@ -24,9 +23,9 @@ class MoodViewModel : ViewModel() {
             id = (_moodNotes.value.size + 1),
             mood = mood,
             note = note,
-            date = LocalDateTime.now() // Получаем текущее время и дату
+            date = LocalDateTime.now()
         )
-        _moodNotes.value = _moodNotes.value + newNote // Обновление списка через StateFlow
+        _moodNotes.value = _moodNotes.value + newNote
         Log.d("MoodViewModel", "Added new mood note: $newNote")
     }
 

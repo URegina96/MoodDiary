@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MoodViewModel::class.java)
         setContent {
-            MoodDiaryTheme {  // Сохраняем тему
+            MoodDiaryTheme {
                 val navController = rememberNavController()
                 NavGraph(navController = navController, viewModel = viewModel) // Передаем ViewModel
             }

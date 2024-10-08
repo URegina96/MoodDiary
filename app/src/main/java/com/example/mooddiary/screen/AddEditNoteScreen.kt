@@ -10,9 +10,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.mooddiary.ui.theme.CustomPurple500
+import com.example.mooddiary.ui.theme.CustomTeal200
+import com.example.mooddiary.ui.theme.CustomWhite
 import com.example.mooddiary.viewModel.MoodViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddEditScreen(navController: NavHostController, noteId: Int?, viewModel: MoodViewModel = viewModel()) {
     var mood by remember { mutableStateOf("") }
@@ -25,10 +27,7 @@ fun AddEditScreen(navController: NavHostController, noteId: Int?, viewModel: Moo
         existingNote?.let {
             mood = it.mood
             note = it.note
-            Log.d("AddEditScreen", "Editing existing note: $it")
-        } ?: Log.e("AddEditScreen", "Note not found for id: $noteId")
-    } else {
-        Log.d("AddEditScreen", "Adding new note")
+        }
     }
 
     Scaffold { innerPadding ->
@@ -43,35 +42,43 @@ fun AddEditScreen(navController: NavHostController, noteId: Int?, viewModel: Moo
                 value = mood,
                 onValueChange = {
                     mood = it
-                    Log.d("AddEditScreen", "Mood updated: $mood")
                 },
-                label = { Text("Настроение") }
+                label = { Text("Настроение") },
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = CustomTeal200,
+                    unfocusedContainerColor = CustomWhite
+                )
             )
             Spacer(modifier = Modifier.height(8.dp))
             TextField(
                 value = note,
                 onValueChange = {
                     note = it
-                    Log.d("AddEditScreen", "Note updated: $note")
                 },
                 label = { Text("Заметка") },
-                modifier = Modifier.fillMaxHeight(0.5f)
+                modifier = Modifier.fillMaxHeight(0.5f),
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = CustomTeal200,
+                    unfocusedContainerColor = CustomWhite
+                )
             )
             Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = {
-                if (noteId == null) {
-                    viewModel.addMoodNote(mood, note)
-                    Toast.makeText(context, "Заметка добавлена", Toast.LENGTH_SHORT).show()
-                    Log.d("AddEditScreen", "Заметка добавлена: настроение=$mood, заметка=$note")
-                } else {
-                    viewModel.updateMoodNote(noteId, mood, note)
-                    Toast.makeText(context, "Заметка обновлена", Toast.LENGTH_SHORT).show()
-                    Log.d("AddEditScreen", "Заметка обновлена: id=$noteId, настроение=$mood, заметка=$note")
-                }
-                navController.navigate("home")
-            }) {
-                Text(if (noteId == null) "Добавить Заметку" else "Обновить Заметку")
+            Button(
+                onClick = {
+                    if (noteId == null) {
+                        viewModel.addMoodNote(mood, note)
+                        Toast.makeText(context, "Заметка добавлена", Toast.LENGTH_SHORT).show()
+                    } else {
+                        viewModel.updateMoodNote(noteId, mood, note)
+                        Toast.makeText(context, "Заметка обновлена", Toast.LENGTH_SHORT).show()
+                    }
+                    navController.navigate("home")
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = CustomPurple500) // Измените здесь
+            ) {
+                Text(if (noteId == null) "Добавить Заметку" else "Обновить Заметку", color = CustomWhite)
             }
+
         }
     }
 }

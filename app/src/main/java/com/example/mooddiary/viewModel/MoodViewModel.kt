@@ -9,10 +9,13 @@ import com.example.mooddiary.models.MoodNote
 import java.time.LocalDateTime
 
 class MoodViewModel : ViewModel() {
-    private val _moodNotes = MutableStateFlow<List<MoodNote>>(listOf(
-        MoodNote(1, "Счастлив", "Отличный день!", LocalDateTime.now()),
-        MoodNote(2, "Грустный", "Плохие новости.", LocalDateTime.now())
-    ))
+    private val _moodNotes = MutableStateFlow<List<MoodNote>>(
+        // Инициализация тестовыми значениями
+        listOf(
+            MoodNote(1, "Счастлив", "Отличный день!", LocalDateTime.of(2023, 12, 25, 10, 30)),
+            MoodNote(2, "Грустный", "Плохие новости.", LocalDateTime.of(2023, 12, 24, 16, 15))
+        )
+    )
 
     val moodNotes = _moodNotes.asStateFlow()
 
@@ -21,7 +24,7 @@ class MoodViewModel : ViewModel() {
             id = (_moodNotes.value.size + 1),
             mood = mood,
             note = note,
-            date = LocalDateTime.now()
+            date = LocalDateTime.now() // Получаем текущее время и дату
         )
         _moodNotes.value = _moodNotes.value + newNote // Обновление списка через StateFlow
         Log.d("MoodViewModel", "Added new mood note: $newNote")
@@ -31,7 +34,7 @@ class MoodViewModel : ViewModel() {
         val existingNotes = _moodNotes.value.toMutableList()
         val existingNote = existingNotes.find { it.id == id }
         if (existingNote != null) {
-            val updatedNote = existingNote.copy(mood = mood, note = note)
+            val updatedNote = existingNote.copy(mood = mood, note = note, date = LocalDateTime.now()) // Обновляем дату при редактировании
             existingNotes[existingNotes.indexOf(existingNote)] = updatedNote
             _moodNotes.value = existingNotes // Обновление списка через StateFlow
             Log.d("MoodViewModel", "Updated mood note: $updatedNote")

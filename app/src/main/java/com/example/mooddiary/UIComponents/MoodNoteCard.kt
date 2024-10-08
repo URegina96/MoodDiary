@@ -1,5 +1,5 @@
 package com.example.mooddiary.UIComponents
-//представление заметки.
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
@@ -8,9 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.mooddiary.models.MoodNote
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun MoodNoteCard(note: MoodNote, onClick: () -> Unit) {
+    val formatter = DateTimeFormatter.ofPattern("HH:mm:ss:SSS        dd.MM.yyyy")
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -20,7 +22,7 @@ fun MoodNoteCard(note: MoodNote, onClick: () -> Unit) {
         Column(modifier = Modifier.padding(8.dp)) {
             Text(text = note.mood)
             Text(text = note.note)
-            Text(text = note.date.toString())
+            Text(text = note.date.format(formatter))
         }
     }
 }

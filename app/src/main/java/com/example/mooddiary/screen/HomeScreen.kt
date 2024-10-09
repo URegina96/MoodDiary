@@ -35,7 +35,11 @@ fun HomeScreen(navController: NavHostController, viewModel: MoodViewModel = view
             items(moodNotes) { note ->
                 MoodNoteCard(note = note, onClick = {
                     navController.navigate("edit/${note.id}") // Переход к редактированию
-                }, backgroundColor = backgroundColor) // Укажите цвет фона карточки
+                    }, backgroundColor = backgroundColor, // Укажите цвет фона карточки
+                    onDelete = {
+                        viewModel.deleteMoodNote(note) // Вызов удаления заметки
+                    }
+                )
             }
         }
     }

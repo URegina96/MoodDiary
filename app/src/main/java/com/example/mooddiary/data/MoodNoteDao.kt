@@ -1,5 +1,6 @@
 package com.example.mooddiary.data
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -17,4 +18,7 @@ interface MoodNoteDao {
 
     @Query("SELECT * FROM moodnote ORDER BY date DESC")
     fun getAllMoodNotes(): Flow<List<MoodNote>>
+
+    @Delete
+    suspend fun deleteMoodNote(note: MoodNote)
 }

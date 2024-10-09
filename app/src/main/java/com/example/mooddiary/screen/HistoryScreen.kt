@@ -23,8 +23,13 @@ fun HistoryScreen(viewModel: MoodViewModel = viewModel()) {
         LazyColumn(modifier = Modifier.fillMaxSize().padding(innerPadding)) {
             items(moodNotes) { note ->
                 MoodNoteCard(note = note, onClick = {
-
-                }, backgroundColor = CustomPurple200)
+                        // логика для просмотра/редактирования заметки
+                    },
+                    onDelete = {
+                        viewModel.deleteMoodNote(note) // Вызов удаления заметки
+                    },
+                    backgroundColor = CustomPurple200 // Передаем цвет здесь
+                )
             }
         }
     }

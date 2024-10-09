@@ -56,7 +56,7 @@ fun MoodNoteCard(note: MoodNote, onClick: () -> Unit, onDelete: () -> Unit, back
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(com.example.mooddiary.ui.theme.backgroundColor) // Используйте переданный цвет
+                .background(backgroundColor) // Используйте переданный цвет
                 .clickable(onClick = onClick)
         ) {
         }

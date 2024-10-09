@@ -15,9 +15,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.mooddiary.models.MoodNote
 import java.time.format.DateTimeFormatter
+import com.example.mooddiary.R
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.Image // Импортируйте Image вместо Icon
+import androidx.compose.ui.res.painterResource
 
 @Composable
 fun MoodNoteCard(note: MoodNote, onClick: () -> Unit, onDelete: () -> Unit, backgroundColor: Color) {
@@ -41,7 +46,11 @@ fun MoodNoteCard(note: MoodNote, onClick: () -> Unit, onDelete: () -> Unit, back
                 Log.d("MoodNoteCard", "Delete icon clicked for note: ${note.id}")
                 onDelete()
             }) {
-                Icon(Icons.Default.Delete, contentDescription = "Delete Note")
+                Image(
+                    painter = painterResource(id = R.drawable.ic_remove),
+                    contentDescription = "Удалить заметку",
+                    modifier = Modifier.size(24.dp)
+                )
             }
         }
         Box(

@@ -14,7 +14,6 @@ import com.example.mooddiary.ui.theme.CustomPurple500
 import com.example.mooddiary.ui.theme.CustomTeal200
 import com.example.mooddiary.ui.theme.CustomWhite
 import com.example.mooddiary.viewModel.MoodViewModel
-
 @Composable
 fun AddEditScreen(navController: NavHostController, noteId: Int?, viewModel: MoodViewModel = viewModel()) {
     var mood by remember { mutableStateOf("") }
@@ -63,20 +62,34 @@ fun AddEditScreen(navController: NavHostController, noteId: Int?, viewModel: Moo
                 )
             )
             Spacer(modifier = Modifier.height(16.dp))
+
             Button(
                 onClick = {
-                    if (noteId == null) {
-                        viewModel.addMoodNote(mood, note)
-                        Toast.makeText(context, "Заметка добавлена", Toast.LENGTH_SHORT).show()
+                    if (mood.isBlank()) {
+                        Toast.makeText(context, "Пожалуйста, заполните заголовок заметки", Toast.LENGTH_SHORT).show()
                     } else {
-                        viewModel.updateMoodNote(noteId, mood, note)
-                        Toast.makeText(context, "Заметка обновлена", Toast.LENGTH_SHORT).show()
+                        if (noteId == null) {
+                            viewModel.addMoodNote(mood, note)
+                            Toast.makeText(context, "Заметка добавлена", Toast.LENGTH_SHORT).show()
+                        } else {
+                            viewModel.updateMoodNote(noteId, mood, note)
+                            Toast.makeText(context, "Заметка обновлена", Toast.LENGTH_SHORT).show()
+                        }
+                        navController.navigate("home")
                     }
-                    navController.navigate("home")
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = CustomPurple500) // Измените здесь
             ) {
                 Text(if (noteId == null) "Добавить Заметку" else "Обновить Заметку", color = CustomWhite)
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
+                onClick = { navController.navigate("home") }, // Возвращаемся на экран со списком
+                colors = ButtonDefaults.buttonColors(containerColor = CustomTeal200)
+            ) {
+                Text("Отменить", color = CustomWhite)
             }
 
         }

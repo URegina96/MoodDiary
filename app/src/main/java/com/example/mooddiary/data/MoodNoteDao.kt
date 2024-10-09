@@ -21,4 +21,6 @@ interface MoodNoteDao {
 
     @Delete
     suspend fun deleteMoodNote(note: MoodNote)
+    @Query("DELETE FROM moodnote")
+    suspend fun deleteAllMoodNotes()
 }

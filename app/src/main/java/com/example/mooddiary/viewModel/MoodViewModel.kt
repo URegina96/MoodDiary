@@ -76,4 +76,12 @@ class MoodViewModel(private val database: MoodDatabase) : ViewModel() {
             getMoodNotes() // Перезагружаем все заметки после удаления
         }
     }
+    fun deleteAllMoodNotes() {
+        viewModelScope.launch {
+            database.moodNoteDao().deleteAllMoodNotes()
+            Log.d("MoodViewModel", "Deleted all mood notes")
+            getMoodNotes()
+        }
+    }
+
 }

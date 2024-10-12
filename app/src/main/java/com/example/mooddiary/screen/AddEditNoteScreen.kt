@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -14,6 +15,8 @@ import com.example.mooddiary.ui.theme.CustomPurple500
 import com.example.mooddiary.ui.theme.CustomTeal200
 import com.example.mooddiary.ui.theme.CustomWhite
 import com.example.mooddiary.viewModel.MoodViewModel
+import com.example.mooddiary.UIComponents.AnimatedIconScreen // Импортируйте ваш компонент с анимацией
+
 @Composable
 fun AddEditScreen(navController: NavHostController, noteId: Int?, viewModel: MoodViewModel = viewModel()) {
     var mood by remember { mutableStateOf("") }
@@ -91,7 +94,15 @@ fun AddEditScreen(navController: NavHostController, noteId: Int?, viewModel: Moo
             ) {
                 Text("Отменить", color = CustomWhite)
             }
+        }
 
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            contentAlignment = Alignment.BottomEnd
+        ) {
+            AnimatedIconScreen()
         }
     }
 }

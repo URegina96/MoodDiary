@@ -23,7 +23,7 @@ import com.example.mooddiary.R
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.Image // Импортируйте Image вместо Icon
 import androidx.compose.ui.res.painterResource
-
+import androidx.compose.ui.text.style.TextOverflow
 @Composable
 fun MoodNoteCard(note: MoodNote, onClick: () -> Unit, onDelete: () -> Unit, backgroundColor: Color) {
     Card(
@@ -39,8 +39,18 @@ fun MoodNoteCard(note: MoodNote, onClick: () -> Unit, onDelete: () -> Unit, back
             Column(
                 modifier = Modifier.weight(1f) // Займите оставшееся пространство для текста
             ) {
-                Text(text = note.mood, style = MaterialTheme.typography.titleLarge)
-                Text(text = note.note, style = MaterialTheme.typography.bodyMedium)
+                Text(
+                    text = note.mood,
+                    style = MaterialTheme.typography.titleLarge,
+                    maxLines = 1, // Ограничиваем до 1 строки
+                    overflow = TextOverflow.Ellipsis // Добавляем многоточие
+                )
+                Text(
+                    text = note.note,
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 2, // Ограничиваем до 2 строк
+                    overflow = TextOverflow.Ellipsis // Добавляем многоточие
+                )
             }
             IconButton(onClick = {
                 Log.d("MoodNoteCard", "Delete icon clicked for note: ${note.id}")
